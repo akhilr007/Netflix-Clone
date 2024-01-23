@@ -34,6 +34,7 @@ const Login = () => {
         password.current.value,
         setSignInError
       );
+      setErrorMessage(null);
       setUser(user);
     }
   };
