@@ -1,21 +1,41 @@
 import React, { useState, useRef } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
+import { signUp, signIn } from "../utils/firebase.config";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const [signInError, setSignInError] = useState(null);
+  const [user, setUser] = useState(null);
 
   const email = useRef(null);
   const password = useRef(null);
+  const displayName = useRef(null);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     const result = checkValidData(
       email.current.value,
       password.current.value,
       isSignInForm
     );
     if (result) setErrorMessage({ ...result });
+
+    if (!isSignInForm) {
+      const user = await signUp(
+        email.current.value,
+        password.current.value,
+        displayName.current.value
+      );
+      setUser(user);
+    } else {
+      const user = await signIn(
+        email.current.value,
+        password.current.value,
+        setSignInError
+      );
+      setUser(user);
+    }
   };
 
   return (
@@ -40,6 +60,7 @@ const Login = () => {
             className="p-3 my-2 w-full bg-gray-700 text-white rounded-md"
             type="text"
             placeholder="Full Name"
+            ref={displayName}
           />
         )}
         <input
@@ -59,12 +80,17 @@ const Login = () => {
           placeholder="Password"
           ref={password}
         />
-        {errorMessage !== null && errorMessage.passwordError && (
-          <div className="text-red-700 font-bold pt-2 pb-2">
-            {errorMessage.passwordError.split("\n").map((line, index) => (
-              <p key={index}>{line}</p>
-            ))}
-          </div>
+        {errorMessage !== null &&
+          !signInError &&
+          errorMessage.passwordError && (
+            <div className="text-red-700 font-bold pt-2 pb-2">
+              {errorMessage.passwordError.split("\n").map((line, index) => (
+                <p key={index}>{line}</p>
+              ))}
+            </div>
+          )}
+        {signInError && !user && (
+          <p className="text-red-700 font-bold pt-2 pb-2">{signInError}</p>
         )}
 
         <button
