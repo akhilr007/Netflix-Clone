@@ -34,7 +34,6 @@ const Login = () => {
         password.current.value,
         setSignInError
       );
-      setErrorMessage(null);
       setUser(user);
     }
   };
@@ -81,16 +80,14 @@ const Login = () => {
           placeholder="Password"
           ref={password}
         />
-        {errorMessage !== null &&
-          !signInError &&
-          errorMessage.passwordError && (
-            <div className="text-red-700 font-bold pt-2 pb-2">
-              {errorMessage.passwordError.split("\n").map((line, index) => (
-                <p key={index}>{line}</p>
-              ))}
-            </div>
-          )}
-        {signInError && !user && (
+        {errorMessage && !isSignInForm && errorMessage.passwordError && (
+          <div className="text-red-700 font-bold pt-2 pb-2">
+            {errorMessage.passwordError.split("\n").map((line, index) => (
+              <p key={index}>{line}</p>
+            ))}
+          </div>
+        )}
+        {signInError && isSignInForm && !user && (
           <p className="text-red-700 font-bold pt-2 pb-2">{signInError}</p>
         )}
 
