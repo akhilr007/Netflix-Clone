@@ -6,7 +6,9 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
+import { removeUser } from "../slice/userSlice";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -52,6 +54,14 @@ export const signIn = async (email, password, setSignInError) => {
   } catch (error) {
     console.error(error);
     setSignInError("Invalid Credentials");
+  }
+};
+
+export const signOutUser = async () => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.error("Error signing out:", error.message);
   }
 };
 
