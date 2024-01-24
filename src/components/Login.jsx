@@ -2,12 +2,14 @@ import React, { useState, useRef } from "react";
 import Header from "./Header";
 import { checkValidData } from "../utils/validate";
 import { signUp, signIn } from "../utils/firebase.config";
+import { useSelector } from "react-redux";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const [signInError, setSignInError] = useState(null);
-  const [user, setUser] = useState(null);
+
+  const user = useSelector((state) => state.user);
 
   const email = useRef(null);
   const password = useRef(null);
@@ -27,14 +29,12 @@ const Login = () => {
         password.current.value,
         displayName.current.value
       );
-      setUser(user);
     } else {
       const user = await signIn(
         email.current.value,
         password.current.value,
         setSignInError
       );
-      setUser(user);
     }
   };
 

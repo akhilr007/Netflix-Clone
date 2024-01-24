@@ -54,3 +54,5 @@ export const signIn = async (email, password, setSignInError) => {
     setSignInError("Invalid Credentials");
   }
 };
+
+export { auth };
