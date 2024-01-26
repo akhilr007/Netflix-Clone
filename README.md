@@ -1,3 +1,5 @@
+Deployed at Netlify: [Link](https://zingy-profiterole-daeed0.netlify.app/)
+
 # Netflix Clone
 
 - created using vite
