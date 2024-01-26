@@ -1,3 +1,5 @@
+import { auth } from "./firebase.config";
+
 const passwordRequirements = {
   minLength: 8,
   requiresUppercase: true,
