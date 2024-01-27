@@ -3,3 +3,15 @@ export const USER_LOGO_URL =
 
 export const NOW_PLAYING_MOVIES_URL =
   "https://api.themoviedb.org/3/movie/now_playing?page=1";
+
+export const IMG_PATH = `http://image.tmdb.org/t/p/w500/`;
+
+export const VIDEO_URL = `https://api.themoviedb.org/3/movie/`;
+
+export const OPTIONS = {
+  method: "GET",
+  headers: {
+    accept: "application/json",
+    Authorization: `Bearer ${import.meta.env.VITE_REACT_TMDB_ACCESS_TOKEN}`,
+  },
+};
