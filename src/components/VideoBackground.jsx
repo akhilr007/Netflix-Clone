@@ -3,6 +3,7 @@ import useMovieTrailer from "../hooks/useMovieTrailer";
 
 const VideoBackground = ({ movieId }) => {
   const trailerId = useMovieTrailer(movieId);
+
   return (
     <div className="w-screen">
       <iframe
